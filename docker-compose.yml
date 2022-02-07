@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  mongodblocal1:
+    hostname: mongodblocal1
+    container_name: mongodblocal1
+    image: mongo:5.0
+    expose:
+      - 28017
+    ports:
+      - 28017:28017
+    restart: always
+    entrypoint:
+      [
+        '/usr/bin/mongod',
+        '--transitionToAuth',
+        '--keyFile',
+        './file.key',
+        '--bind_ip_all',
+        '--replSet',
+        'mongodbReplica',
+        '--port',
+        '28017'
+      ]
+    networks:
+      - mongodb
+    volumes:
+      - './file.key:/file.key'
+  mongodblocal2:
+    hostname: mongodblocal2
+    container_name: mongodblocal2
+    image: mongo:5.0
+    expose:
+      - 28018
+    ports:
+      - 28018:28018
+    restart: always
+    entrypoint:
+      [
+        '/usr/bin/mongod',
+        '--transitionToAuth',
+        '--keyFile',
+        './file.key',
+        '--bind_ip_all',
+        '--replSet',
+        'mongodbReplica',
+        '--port',
+        '28018'
+      ]
+    networks:
+      - mongodb
+    volumes:
+      - './file.key:/file.key'
+  mongodblocal3:
+    hostname: mongodblocal3
+    container_name: mongodblocal3
+    image: mongo:5.0
+    expose:
+      - 28019
+    ports:
+      - 28019:28019
+    restart: always
+    entrypoint:
+      [
+        '/usr/bin/mongod',
+        '--transitionToAuth',
+        '--keyFile',
+        './file.key',
+        '--bind_ip_all',
+        '--replSet',
+        'mongodbReplica',
+        '--port',
+        '28019'
+      ]
+    networks:
+      - mongodb
+    volumes:
+      - './file.key:/file.key'
+  mongodb-setup:
+    build: ./build/.
+    hostname: mongodb-setup
+    container_name: mongodb-setup
+    networks:
+      - mongodb
+    depends_on:
+      - mongodblocal1
+      - mongodblocal2
+      - mongodblocal3
+networks:
+  mongodb:

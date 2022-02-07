@@ -1,0 +1,27 @@
+{
+  "name": "auction-system-app",
+  "version": "1.0.0",
+  "description": "An app for auction",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=development nodemon index.js"
+  },
+  "author": "Vinia Soldia",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.10.0",
+    "ajv-formats": "^2.1.1",
+    "axios": "^0.25.0",
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "helmet": "^5.0.2",
+    "mongodb": "^4.3.1",
+    "nodemon": "^2.0.15",
+    "scrypt-kdf": "^2.0.1",
+    "winston": "^3.5.1"
+  }
+}
