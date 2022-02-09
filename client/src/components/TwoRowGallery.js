@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 
 function TwoRowGallery({ components, contents }) {
-	const { Context } = components;
+	const { Context, RunningPrice } = components;
 	const { getItemList } = contents;
 	const [state, dispatch] = useContext(Context);
 
@@ -71,9 +71,12 @@ function TwoRowGallery({ components, contents }) {
 								</p>
 							</div>
 							<div className="w-2/5 grid grid-rows-1 justify-items-end">
-								<p className="block text-lg leading-tight font-medium text-black">
-									${item.runningPrice}
-								</p>
+								<RunningPrice
+									handler={item.handler}
+									components={components}
+									contents={contents}
+									className="block text-lg leading-tight font-medium text-black"
+								/>
 								<Link
 									className="rounded-md shadow-md mt-1 text-center px-1 py-1 border border-transparent text-xs font-normal text-white bg-blue-600"
 									to={`/item-details/${item.handler}`}
