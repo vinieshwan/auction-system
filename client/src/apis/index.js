@@ -16,11 +16,14 @@ export const getItemList = async (status) => {
 	}
 };
 
-export const getItem = async (handler) => {
+export const getItem = async (handler, field) => {
 	try {
-		const response = await axios.get(`${API_PATH}/v1/item/${handler}`, {
-			withCredentials: true
-		});
+		const response = await axios.get(
+			`${API_PATH}/v1/item/${handler}${field ? '/' + field : ''}`,
+			{
+				withCredentials: true
+			}
+		);
 		return response.data.data;
 	} catch (error) {
 		return {

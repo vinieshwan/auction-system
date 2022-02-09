@@ -2,7 +2,13 @@ import { createContext, useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { LeftSideBar, RightSideBar, Content, Login } from './layout';
-import { Header, SingleRowGallery, TwoRowGallery, Timer } from './components';
+import {
+	Header,
+	SingleRowGallery,
+	TwoRowGallery,
+	Timer,
+	RunningPrice
+} from './components';
 import { Home, ItemDetails, Empty } from './pages';
 import Reducer from './Reducer';
 import Main from './Main';
@@ -22,7 +28,8 @@ const initialState = {
 	item: [],
 	isAuth: null,
 	user: null,
-	error: null
+	error: null,
+	itemPrice: {}
 };
 
 const Context = createContext(initialState);
@@ -39,7 +46,8 @@ const components = {
 	Context,
 	Timer,
 	Login,
-	Empty
+	Empty,
+	RunningPrice
 };
 const contents = {
 	getItemList,

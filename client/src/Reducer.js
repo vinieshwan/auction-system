@@ -25,6 +25,11 @@ const Reducer = (state, action) => {
 				...state,
 				user: action.payload
 			};
+		case 'SET_PRICE':
+			return {
+				...state,
+				itemPrice: Object.assign(state.itemPrice, action.payload)
+			};
 		case 'SET_USER_BIDS':
 			return {
 				...state,

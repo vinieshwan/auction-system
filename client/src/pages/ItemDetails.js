@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Switch } from '@headlessui/react';
 
 function ItemDetails({ components, contents }) {
-	const { Header, SingleRowGallery, Context, Timer } = components;
+	const { Header, SingleRowGallery, Context, Timer, RunningPrice } = components;
 	const { getItem, postBid, getBidList, enableAutoBid } = contents;
 	const [enabled, setEnabled] = useState(false);
 	const [disabled, setDisabled] = useState(false);
@@ -66,6 +66,7 @@ function ItemDetails({ components, contents }) {
 
 			let foundItem;
 			let sum = 0;
+
 			if (list && list.length) {
 				list.map((item) => item.itemId === response._id);
 
@@ -174,9 +175,12 @@ function ItemDetails({ components, contents }) {
 								</Switch>
 								<span>Enable autobidding</span>
 							</div>
-							<div className="rounded-md shadow-md text-center mx-10 mb-3 px-8 py-3 border border-transparent text-2xl font-medium text-slate-600 bg-slate-100">
-								${state.item.runningPrice}
-							</div>
+							<RunningPrice
+								handler={id}
+								components={components}
+								contents={contents}
+								className="rounded-md shadow-md text-center mx-10 mb-3 px-8 py-3 border border-transparent text-2xl font-medium text-slate-600 bg-slate-100"
+							/>
 							<div
 								className={`w-fit rounded-md shadow-md text-center mx-10 mt-3 mb-10 px-8 py-3 border border-transparent text-md font-medium ${
 									enabled || disabled
