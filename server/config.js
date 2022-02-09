@@ -36,7 +36,11 @@ const {
 	USER1_ID,
 	USER2_ID,
 	USER3_ID,
-	USER4_ID
+	USER4_ID,
+	MAX_BID_USER1,
+	MAX_BID_USER2,
+	MAX_BID_USER3,
+	MAX_BID_USER4
 } = process.env;
 
 module.exports = {
@@ -63,7 +67,8 @@ module.exports = {
 			password: USER1_PASSWORD,
 			role: 'regular',
 			name: 'Rachel Bruce',
-			img: 'assets/user1.jpg'
+			img: 'assets/user1.jpg',
+			maxBid: parseInt(MAX_BID_USER1, 10)
 		},
 		{
 			username: USER2_USERNAME,
@@ -72,7 +77,8 @@ module.exports = {
 			password: USER2_PASSWORD,
 			role: 'regular',
 			name: 'Charles Beck',
-			img: 'assets/user2.jpg'
+			img: 'assets/user2.jpg',
+			maxBid: parseInt(MAX_BID_USER2, 10)
 		},
 		{
 			username: USER3_USERNAME,
@@ -81,7 +87,8 @@ module.exports = {
 			password: USER3_PASSWORD,
 			role: 'seller',
 			name: 'Jamila Junker',
-			img: 'assets/seller.jpg'
+			img: 'assets/seller.jpg',
+			maxBid: parseInt(MAX_BID_USER3, 10)
 		},
 		{
 			username: USER4_USERNAME,
@@ -90,7 +97,8 @@ module.exports = {
 			password: USER4_PASSWORD,
 			role: 'admin',
 			name: 'James Mays',
-			img: 'assets/admin.jpg'
+			img: 'assets/admin.jpg',
+			maxBid: parseInt(MAX_BID_USER4, 10)
 		}
 	]
 };

@@ -1,12 +1,6 @@
 module.exports = {
 	bsonType: 'object',
-	required: [
-		'userId',
-		'itemId',
-		'autoBidRunningPrice',
-		'isAutoBid',
-		'createdAt'
-	],
+	required: ['userId', 'itemId', 'isAutoBid', 'createdAt'],
 	properties: {
 		userId: {
 			bsonType: 'objectId',
@@ -19,8 +13,11 @@ module.exports = {
 		},
 		autoBidRunningPrice: {
 			bsonType: 'number',
-			description:
-				'Running bid price of an item. Must be a number and is required'
+			description: 'Running auto bid price of an item. Must be a number'
+		},
+		normalRunningPrice: {
+			bsonType: 'number',
+			description: 'Running normal bid price of an item. Must be a number'
 		},
 		isAutoBid: {
 			bsonType: 'bool',

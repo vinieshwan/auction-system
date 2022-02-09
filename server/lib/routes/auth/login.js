@@ -143,8 +143,11 @@ class LoginRoute {
 		req.user = {
 			name: user.name,
 			img: user.img,
-			role: user.role
+			role: user.role,
+			maxBid: user.maxBid
 		};
+
+		console.log(req.user);
 
 		next();
 	}

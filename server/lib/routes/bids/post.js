@@ -37,13 +37,20 @@ class PostBidRoute {
 			const isPosted = await this.controllers.bids.post(
 				req.body.itemId,
 				userId,
-				req.body.fields
+				req.body.fields,
+				{
+					operation: 'add'
+				}
 			);
 
 			if (isPosted) {
 				isUpdated = await this.controllers.items.update(
 					req.body.itemId,
-					userId
+					userId,
+					req.body.fields,
+					{
+						operation: 'add'
+					}
 				);
 			}
 

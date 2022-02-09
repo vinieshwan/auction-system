@@ -6,14 +6,23 @@ class ItemsController {
 		this.models = options.models.items;
 	}
 
-	async get(handler) {
+	async get(handler, field) {
 		let item;
 
+		const options = {
+			readFromSecondary: true
+		};
+
+		if (field) {
+			options.projection = {
+				[field]: 1
+			};
+		}
+
 		try {
-			item = await this.models.getByHandler(handler, {
-				readFromSecondary: true
-			});
+			item = await this.models.getByHandler(handler, options);
 		} catch (error) {
+			console.log(error);
 			throw new Error('Internal Server Error');
 		}
 
@@ -24,11 +33,11 @@ class ItemsController {
 		return item;
 	}
 
-	async update(itemId, userId) {
+	async update(itemId, userId, fields, options = {}) {
 		let item;
 
 		try {
-			item = await this.models.update(itemId, userId);
+			item = await this.models.update(itemId, userId, fields, options);
 		} catch (error) {
 			return false;
 		}

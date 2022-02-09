@@ -11,7 +11,7 @@ class GetItemRoute {
 
 	setupRoute() {
 		this.app.get(
-			'/v1/item/:handler',
+			'/v1/item/:handler/:field?',
 			this.middlewares.verifySession,
 			this.middlewares.loadSession,
 			this.getItem.bind(this)
@@ -32,7 +32,10 @@ class GetItemRoute {
 		let item;
 
 		try {
-			item = await this.controllers.items.get(req.params.handler);
+			item = await this.controllers.items.get(
+				req.params.handler,
+				req.params.field || ''
+			);
 		} catch (error) {
 			this.logger.error({
 				label: 'GetItemRoute',

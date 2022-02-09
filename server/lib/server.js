@@ -46,7 +46,7 @@ class Server {
 	}
 
 	async start() {
-		await this.loadDependencies();
+		this.loadDependencies();
 		await this.loadModels();
 		await this.loadMiddlewares();
 		await this.loadControllers();
@@ -54,7 +54,7 @@ class Server {
 		await this.startListening();
 	}
 
-	async loadDependencies() {
+	loadDependencies() {
 		this.app.use(
 			cors({
 				origin: this.config.clientUrl,
@@ -88,29 +88,12 @@ class Server {
 		this.models.bids = new BidsModel(mongodbClient, { database });
 		this.models.sessions = new SessionsModel(mongodbClient, { database });
 
-		const pipeline = [
-			{
-				$match: {
-					$and: [
-						{
-							operationType: 'update',
-							'updateDescription.updatedFields.users': { $exists: true }
-						},
-						{
-							operationType: 'update',
-							'updateDescription.updatedFields.runningPrice': { $exists: true }
-						}
-					]
-				}
-			}
-		];
-
 		const autobidEvent = new AutobidEvent(mongodbClient, {
 			database,
 			config: this.config,
 			logger: this.logger
 		});
-		autobidEvent.watch(30000, ItemsModel.getCollectionName(), pipeline);
+		autobidEvent.watch(5000, ItemsModel.getCollectionName());
 	}
 
 	async loadControllers() {

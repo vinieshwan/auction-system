@@ -29,12 +29,30 @@ class AutoBidRoute {
 			return res.status(401).json({ message: 'Unauthorized Access' });
 		}
 
+		let isPosted, isUpdated;
+
 		try {
-			await this.controllers.bids.post(
+			isPosted = await this.controllers.bids.post(
 				req.body.itemId,
 				req.session.userId,
 				req.body.fields
 			);
+
+			if (isPosted) {
+				isUpdated = await this.controllers.items.update(
+					req.body.itemId,
+					req.session.userId,
+					req.body.fields
+				);
+			}
+
+			if (isPosted && !isUpdated) {
+				await this.controllers.bids.post(
+					req.body.itemId,
+					req.session.userId,
+					req.body.fields
+				);
+			}
 		} catch (error) {
 			this.logger.error({
 				label: 'AutoBidRoute',
