@@ -15,35 +15,39 @@ class BidsModel {
 	}
 
 	async post(itemId, userId, fields, options = {}) {
-		const query = {
+		const queryOptions = {
 			$setOnInsert: {
 				itemId: new ObjectId(itemId),
 				userId: new ObjectId(userId),
-				createdAt: new Date(),
-				autoBidRunningPrice: 0
+				createdAt: new Date()
 			},
 			$set: {
-				updatedAt: new Date()
+				updatedAt: new Date(),
+				isAutoBid: fields.isAutoBid
 			}
 		};
 
-		if (fields.isAutoBid !== undefined) {
-			query.$set.isAutoBid = fields.isAutoBid;
-		}
+		console.log(fields.isAutoBid, options.operation);
 
-		if (options.operation === 'add') {
-			query.$inc = {
+		if (!fields.isAutoBid && options.operation === 'add') {
+			{
+				queryOptions.$inc = {
+					normalRunningPrice: 1
+				};
+			}
+		} else if (fields.isAutoBid && options.operation === 'add') {
+			queryOptions.$inc = {
 				autoBidRunningPrice: 1
 			};
-		} else if (options.operation === 'deduct') {
-			query.$inc = {
+		} else if (fields.isAutoBid && options.operation === 'deduct') {
+			queryOptions.$inc = {
 				autoBidRunningPrice: -1
 			};
 		}
 
 		return this.collection.updateOne(
 			{ itemId: new ObjectId(itemId), userId: new ObjectId(userId) },
-			query,
+			queryOptions,
 			{ upsert: true }
 		);
 	}

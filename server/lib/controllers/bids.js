@@ -13,6 +13,8 @@ class BidsController {
 		try {
 			bid = await this.models.post(itemId, userId, fields, options);
 		} catch (error) {
+			console.log(itemId, userId, fields, options);
+			console.log(error);
 			if (options.retry) {
 				await this.utils.date.timeOut(2000);
 				return this.post(itemId, userId, fields, options);
